@@ -19,6 +19,7 @@ const message = document.getElementById("message");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  message.textContent = ""; // 前回メッセージ消す
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -27,6 +28,28 @@ form.addEventListener("submit", async (e) => {
     await signInWithEmailAndPassword(auth, email, password);
     location.href = "./mypage.html";
   } catch (error) {
-    message.textContent = error.message;
+    // 👇 ここがポイント
+    switch (error.code) {
+      case "auth/invalid-credential":
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+        message.textContent =
+          "メールアドレスまたはパスワードが正しくありません";
+        break;
+
+      case "auth/invalid-email":
+        message.textContent = "メールアドレスの形式が正しくありません";
+        break;
+
+      case "auth/too-many-requests":
+        message.textContent =
+          "試行回数が多すぎます。しばらくしてから再度お試しください";
+        break;
+
+      default:
+        message.textContent = "ログインに失敗しました。もう一度お試しください";
+    }
+
+    message.style.color = "red";
   }
 });
