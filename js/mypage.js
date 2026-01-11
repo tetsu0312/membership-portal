@@ -26,13 +26,13 @@ const emailEl = document.getElementById("email");
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
-  location.replace("./login.html");
+  location.replace("./index.html");
 });
 
 onAuthStateChanged(auth, async (user) => {
   // 🔐 未ログインなら即ログインページ
   if (!user) {
-    location.replace("./login.html");
+    location.replace("./index.html");
     return;
   }
 
