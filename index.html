@@ -2,24 +2,31 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>会員ポータル</title>
+  <title>ログイン｜会員ポータル</title>
 </head>
 <body>
   <h1>会員ポータル</h1>
 
-  <div id="guest">
-    <p>ログイン、または新規会員登録をしてください。</p>
-    <ul>
-      <li><a href="./login.html">ログイン</a></li>
-      <li><a href="./register.html">新規会員登録</a></li>
-    </ul>
-  </div>
+  <form id="loginForm">
+    <div>
+      <label>メールアドレス</label><br />
+      <input type="email" id="email" required />
+    </div>
 
-  <div id="member" style="display:none;">
-    <p>ログイン済みです。</p>
-    <p><a href="./mypage.html">マイページへ</a></p>
-  </div>
+    <div>
+      <label>パスワード</label><br />
+      <input type="password" id="password" required />
+    </div>
 
-  <script type="module" src="./js/index.js"></script>
+    <button type="submit">ログイン</button>
+  </form>
+
+  <p>
+    <a href="./register.html">新規会員登録はこちら</a>
+  </p>
+
+  <p id="message"></p>
+
+  <script type="module" src="./js/login.js"></script>
 </body>
 </html>
