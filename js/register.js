@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>会員登録</title>
+</head>
+<body>
+  <h1>会員登録</h1>
+
+  <form id="registerForm">
+    <div>
+      <label>メールアドレス</label><br />
+      <input type="email" id="email" required />
+    </div>
+
+    <div>
+      <label>パスワード</label><br />
+      <input type="password" id="password" required />
+    </div>
+
+    <div>
+      <label>名前</label><br />
+      <input type="text" id="name" required />
+    </div>
+
+    <div>
+      <label>会員番号</label><br />
+      <input type="text" id="memberNo" required />
+    </div>
+
+    <div>
+      <label>誕生日</label><br />
+      <input type="date" id="birthday" required />
+    </div>
+
+    <button type="submit">登録する</button>
+  </form>
+
+  <p id="message"></p>
+
+  <!-- Firebase -->
+  <script type="module" src="./js/register.js"></script>
+</body>
+</html>
