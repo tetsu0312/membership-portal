@@ -1,3 +1,13 @@
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    // 未ログインならログインページへ
+    location.replace("./login.html");
+    return;
+  }
+
+  // ↓ ここから先はログイン済みユーザーだけ
+});
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
