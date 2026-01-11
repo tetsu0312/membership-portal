@@ -14,20 +14,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const guest = document.getElementById("guest");
-const member = document.getElementById("member");
-
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // ログイン済み
-    guest.style.display = "none";
-    member.style.display = "block";
-
-    // 自動でマイページへ飛ばしたい場合はこれ👇
-    // location.href = "./mypage.html";
-  } else {
-    // 未ログイン
-    guest.style.display = "block";
-    member.style.display = "none";
+    // 🔥 ログイン済みなら即マイページ
+    location.replace("./mypage.html");
   }
+  // 未ログイン時は何もしない
+  // → index.html の「ログイン / 新規登録」が表示される
 });
