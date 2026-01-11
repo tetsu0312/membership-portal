@@ -52,7 +52,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const form = document.getElementById("registerForm");
-const message = document.getElementById("message");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -75,18 +74,18 @@ form.addEventListener("submit", async (e) => {
     // ② 会員番号を自動生成（重複チェック付き）
     const memberNo = await generateUniqueMemberNo(db);
 
-    // ③ Firestoreに保存
-    await setDoc(doc(db, "users", user.uid), {
-      name,
-      birthday,
-      email,
-      memberNo,
-      role: "user",
-      createdAt: serverTimestamp()
-    });
+// ③ Firestoreに保存
+await setDoc(doc(db, "users", user.uid), {
+  name,
+  birthday,
+  email,
+  memberNo,
+  role: "user",
+  createdAt: serverTimestamp()
+});
 
-    message.textContent = `登録完了！あなたの会員番号は「${memberNo}」です`;
-    message.style.color = "green";
+// 🔥 登録完了 → 即マイページ
+location.replace("./mypage.html");
 
     // location.href = "./index.html";
   } catch (error) {
