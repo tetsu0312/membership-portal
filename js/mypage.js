@@ -50,14 +50,12 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
    認証状態監視
 ========================= */
 onAuthStateChanged(auth, async (user) => {
-  // 🔐 未ログインならトップへ
   if (!user) {
     location.replace("./index.html");
     return;
   }
 
   try {
-    // Firestoreからユーザー情報取得
     const ref = doc(db, "users", user.uid);
     const snap = await getDoc(ref);
 
@@ -68,30 +66,24 @@ onAuthStateChanged(auth, async (user) => {
 
     const data = snap.data();
 
-    // =========================
-    // ① DOMに反映（画面完成）
-    // =========================
+    // ① DOMに表示
     nameEl.textContent = data.name ?? "";
     memberNoEl.textContent = data.memberNo ?? "";
     birthdayEl.textContent = data.birthday ?? "";
     emailEl.textContent = data.email ?? user.email ?? "";
 
     profile.style.display = "block";
-    message.textContent = "";
 
-    // =========================
-    // ② ChatPlus に情報を渡す
-    // （HTMLで用意した箱の中身を更新）
-    // =========================
-    if (document.__cp_p) {
-      document.__cp_p.chatName = nameEl.textContent;
-      document.__cp_p.chatEmail = emailEl.textContent;
-    }
+    // ② 🔥 ここでチャットプラスに渡す（超重要）
+    document.__cp_p = {
+      chatName: nameEl.textContent,
+      chatEmail: emailEl.textContent,
+    };
 
-    if (document.__cp_f) {
-      document.__cp_f["会員番号"] = memberNoEl.textContent;
-      document.__cp_f["誕生日"] = birthdayEl.textContent;
-    }
+    document.__cp_f = {
+      "会員番号": memberNoEl.textContent,
+      "誕生日": birthdayEl.textContent,
+    };
 
   } catch (e) {
     message.textContent = e.message;
