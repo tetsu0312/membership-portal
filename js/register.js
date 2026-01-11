@@ -1,44 +1,59 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <title>会員登録</title>
-</head>
-<body>
-  <h1>会員登録</h1>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  <form id="registerForm">
-    <div>
-      <label>メールアドレス</label><br />
-      <input type="email" id="email" required />
-    </div>
+// 🔽 Firebase設定（コンソールからコピペ）
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
 
-    <div>
-      <label>パスワード</label><br />
-      <input type="password" id="password" required />
-    </div>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    <div>
-      <label>名前</label><br />
-      <input type="text" id="name" required />
-    </div>
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
-    <div>
-      <label>会員番号</label><br />
-      <input type="text" id="memberNo" required />
-    </div>
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    <div>
-      <label>誕生日</label><br />
-      <input type="date" id="birthday" required />
-    </div>
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value;
+  const memberNo = document.getElementById("memberNo").value;
+  const birthday = document.getElementById("birthday").value;
 
-    <button type="submit">登録する</button>
-  </form>
+  try {
+    // ① 認証ユーザー作成
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-  <p id="message"></p>
+    const user = userCredential.user;
 
-  <!-- Firebase -->
-  <script type="module" src="./js/register.js"></script>
-</body>
-</html>
+    // ② Firestoreに会員情報保存（uidをドキュメントIDに）
+    await setDoc(doc(db, "users", user.uid), {
+      name,
+      memberNo,
+      birthday,
+      email
+    });
+
+    message.textContent = "登録完了！";
+    message.style.color = "green";
+
+    // 次はログインページへ飛ばしてもOK
+    // location.href = "login.html";
+
+  } catch (error) {
+    message.textContent = error.message;
+    message.style.color = "red";
+  }
+});
