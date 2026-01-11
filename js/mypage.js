@@ -1,13 +1,3 @@
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // 未ログインならログインページへ
-    location.replace("./login.html");
-    return;
-  }
-
-  // ↓ ここから先はログイン済みユーザーだけ
-});
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -36,15 +26,17 @@ const emailEl = document.getElementById("email");
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
-  location.href = "./login.html";
+  location.replace("./login.html");
 });
 
 onAuthStateChanged(auth, async (user) => {
+  // 🔐 未ログインなら即ログインページ
   if (!user) {
-    location.href = "./login.html";
+    location.replace("./login.html");
     return;
   }
 
+  // ✅ ログイン済みユーザーだけここに来る
   try {
     const ref = doc(db, "users", user.uid);
     const snap = await getDoc(ref);
