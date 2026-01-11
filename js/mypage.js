@@ -55,16 +55,6 @@ onAuthStateChanged(auth, async (user) => {
     profile.style.display = "block";
     message.textContent = "";
 
-      document.__cp_p = {
-      chatName: nameEl.textContent,
-      chatEmail: emailEl.textContent,
-    };
-
-    document.__cp_f = {
-      "会員番号": memberNoEl.textContent,
-      "誕生日": birthdayEl.textContent,
-    };
-
   } catch (e) {
     message.textContent = e.message;
   }
