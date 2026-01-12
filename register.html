@@ -2,42 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>会員登録</title>
+  <title>会員登録｜会員ポータル</title>
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
   <h1>会員登録</h1>
 
+  <p class="login-guide">
+    以下情報を入力して、会員登録してください✨
+  </p>
+
   <form id="registerForm">
-    <div>
-      <label>メールアドレス</label><br />
-      <input type="email" id="email" required />
-    </div>
+    <label>メールアドレス</label>
+    <input type="email" id="email" required />
 
-    <div>
-      <label>パスワード</label><br />
-      <input type="password" id="password" required />
-    </div>
+    <label>パスワード</label>
+    <input type="password" id="password" required />
 
-    <div>
-      <label>名前</label><br />
-      <input type="text" id="name" required />
-    </div>
+    <label>名前</label>
+    <input type="text" id="name" required />
 
-    <div>
-      <label>誕生日</label><br />
-      <input type="date" id="birthday" required />
-    </div>
+    <label>誕生日</label>
+    <input type="date" id="birthday" required />
 
     <button type="submit">登録する</button>
   </form>
 
   <p id="message"></p>
 
-  <p>
-  <a href="./index.html">既に登録している方はこちら</a>
-  </p>
+  <div class="link-area">
+    <a href="./index.html">すでに登録している方はこちら</a>
+  </div>
 
-  <!-- Firebase -->
   <script type="module" src="./js/register.js"></script>
 </body>
 </html>
