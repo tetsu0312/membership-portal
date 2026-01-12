@@ -24,17 +24,19 @@
   <script type="module" src="./js/mypage.js"></script>
 
 <script>
-  document.__cp_p = {
-    chatName: sessionStorage.getItem("chatName"),
-    chatEmail: sessionStorage.getItem("chatEmail")
-  };
+  // sessionStorage から取得
+  const chatName = sessionStorage.getItem("chatName");
+  const chatEmail = sessionStorage.getItem("chatEmail");
+  const memberNo = sessionStorage.getItem("memberNo");
+  const birthday = sessionStorage.getItem("birthday");
 
-  document.__cp_f = {
-    "会員番号": sessionStorage.getItem("memberNo"),
-    "誕生日": sessionStorage.getItem("birthday")
-  };
+  // HTML に反映
+  document.getElementById("chatName").textContent = chatName ?? "";
+  document.getElementById("chatEmail").textContent = chatEmail ?? "";
+  document.getElementById("memberNo").textContent = memberNo ?? "";
+  document.getElementById("birthday").textContent = birthday ?? "";
 </script>
-  
+
 <script>(function(){
 var w=window,d=document;
 var s="https://app.chatplus.jp/cp.js";
