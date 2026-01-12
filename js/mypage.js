@@ -52,11 +52,13 @@ onAuthStateChanged(auth, async (user) => {
     emailEl.textContent = data.email ?? user.email ?? "";
     profile.style.display = "block";
 
-    // ② sessionStorage に保存（←ここが今回の主役！）
-    sessionStorage.setItem("chatName", data.name ?? "");
-    sessionStorage.setItem("chatEmail", data.email ?? user.email ?? "");
-    sessionStorage.setItem("memberNo", data.memberNo ?? "");
-    sessionStorage.setItem("birthday", data.birthday ?? "");
+    // ② window に直置き（ChatPlus用）
+  window.__CHATPLUS_USER__ = {
+  chatName: data.name ?? "",
+  chatEmail: data.email ?? user.email ?? "",
+  memberNo: data.memberNo ?? "",
+  birthday: data.birthday ?? ""
+};
 
   } catch (e) {
     message.textContent = e.message;
