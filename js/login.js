@@ -7,8 +7,7 @@ const firebaseConfig = {
   projectId: "user-login-portal",
   storageBucket: "user-login-portal.firebasestorage.app",
   messagingSenderId: "183527442150",
-  appId: "1:183527442150:web:15341cf06a216c10ab9d27",
-  measurementId: "G-NG9H5NJEPH"
+  appId: "1:183527442150:web:15341cf06a216c10ab9d27"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -16,39 +15,35 @@ const auth = getAuth(app);
 
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
+const emailInput = document.getElementById("email");
 
-// 🔁 保存されているメールがあれば自動入力
+/* =========================
+   🔁 ページ表示時：自動復元
+========================= */
 const savedEmail = localStorage.getItem("savedEmail");
 if (savedEmail) {
-  document.getElementById("email").value = savedEmail;
-  document.getElementById("rememberEmail").checked = true;
+  emailInput.value = savedEmail;
 }
 
+/* =========================
+   🔐 ログイン処理
+========================= */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  message.textContent = ""; // 前回メッセージ消す
+  message.textContent = "";
 
-  const email = document.getElementById("email").value;
+  const email = emailInput.value;
   const password = document.getElementById("password").value;
 
-try {
-  await signInWithEmailAndPassword(auth, email, password);
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
 
-  // 👇 追加ここから
-  const remember = document.getElementById("rememberEmail").checked;
-
-  if (remember) {
-    // チェックあり → メール保存
+    // ✅ 成功したら必ず保存
     localStorage.setItem("savedEmail", email);
-  } else {
-    // チェックなし → 保存しない（消す）
-    localStorage.removeItem("savedEmail");
-  }
-  // 👆 追加ここまで
 
-  location.href = "./mypage.html";
+    location.href = "./mypage.html";
+
   } catch (error) {
-    // 👇 ここがポイント
     switch (error.code) {
       case "auth/invalid-credential":
       case "auth/user-not-found":
