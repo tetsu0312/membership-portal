@@ -23,32 +23,18 @@
 
   <script type="module" src="./js/mypage.js"></script>
 
-<script>
-  // sessionStorage から取得
-  const name = sessionStorage.getItem("chatName");
-  const email = sessionStorage.getItem("chatEmail");
-  const memberNo = sessionStorage.getItem("memberNo");
-  const birthday = sessionStorage.getItem("birthday");
-
-  // HTML に反映
-  document.getElementById("name").textContent = name ?? "";
-  document.getElementById("email").textContent = email ?? "";
-  document.getElementById("memberNo").textContent = memberNo ?? "";
-  document.getElementById("birthday").textContent = birthday ?? "";
-</script>
-
 <script>(function(){
 var w=window,d=document;
 var s="https://app.chatplus.jp/cp.js";
 d["__cp_d"]="https://app.chatplus.jp";
 d["__cp_c"]="c0632e38_92";
 d["__cp_p"]={
-  "chatName": "name",
-  "chatEmail": "email",
+  "chatName": id="name",
+  "chatEmail": id="email",
 };
 d["__cp_f"]={
-  "会員番号": "memberNo",
-  "誕生日": "birthday",
+  "会員番号": id="memberNo",
+  "誕生日": id="birthday",
 };
 var a=d.createElement("script"), m=d.getElementsByTagName("script")[0];
 a.async=true,a.src=s,m.parentNode.insertBefore(a,m);})();
