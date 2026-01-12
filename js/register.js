@@ -1,8 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
 import {
+  getFirestore,
+  doc,
+  setDoc,
   collection,
   query,
   where,
@@ -10,34 +11,21 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-async function generateUniqueMemberNo(db) {
-  while (true) {
-    const memberNo = generateMemberNo(6);
-
-    const q = query(
-      collection(db, "users"),
-      where("memberNo", "==", memberNo)
-    );
-
-    const snap = await getDocs(q);
-
-    if (snap.empty) {
-      return memberNo; // 被ってない → 採用！
-    }
-  }
-}
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase設定
 const firebaseConfig = {
   apiKey: "AIzaSyCQKXq7z-tgfz5H38G-GLpZWsEG3MA8i2Q",
   authDomain: "user-login-portal.firebaseapp.com",
   projectId: "user-login-portal",
   storageBucket: "user-login-portal.firebasestorage.app",
   messagingSenderId: "183527442150",
-  appId: "1:183527442150:web:15341cf06a216c10ab9d27",
-  measurementId: "G-NG9H5NJEPH"
+  appId: "1:183527442150:web:15341cf06a216c10ab9d27"
 };
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 6桁英数字の会員番号生成
 function generateMemberNo(length = 6) {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -47,11 +35,26 @@ function generateMemberNo(length = 6) {
   return result;
 }
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// 会員番号の重複チェック付き生成
+async function generateUniqueMemberNo() {
+  while (true) {
+    const memberNo = generateMemberNo();
 
+    const q = query(
+      collection(db, "users"),
+      where("memberNo", "==", memberNo)
+    );
+
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      return memberNo;
+    }
+  }
+}
+
+// DOM
 const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -62,7 +65,7 @@ form.addEventListener("submit", async (e) => {
   const birthday = document.getElementById("birthday").value;
 
   try {
-    // ① 認証ユーザー作成
+    // ① Firebase Authentication にユーザー作成
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -71,23 +74,22 @@ form.addEventListener("submit", async (e) => {
 
     const user = userCredential.user;
 
-    // ② 会員番号を自動生成（重複チェック付き）
-    const memberNo = await generateUniqueMemberNo(db);
+    // ② 会員番号を生成（重複なし）
+    const memberNo = await generateUniqueMemberNo();
 
-// ③ Firestoreに保存
-await setDoc(doc(db, "users", user.uid), {
-  name,
-  birthday,
-  email,
-  memberNo,
-  role: "user",
-  createdAt: serverTimestamp()
-});
+    // ③ Firestore にユーザー情報を保存
+    await setDoc(doc(db, "users", user.uid), {
+      name,
+      email,
+      birthday,
+      memberNo,
+      role: "user",
+      createdAt: serverTimestamp()
+    });
 
-// 🔥 登録完了 → 即マイページ
-location.replace("./mypage.html");
+    // ④ 登録完了 → マイページへ
+    location.replace("./mypage.html");
 
-    // location.href = "./index.html";
   } catch (error) {
     message.textContent = error.message;
     message.style.color = "red";

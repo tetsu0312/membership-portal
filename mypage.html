@@ -24,8 +24,15 @@
   <script type="module" src="./js/mypage.js"></script>
 
 <script>
-  document.__cp_p = {};
-  document.__cp_f = {};
+  document.__cp_p = {
+    chatName: sessionStorage.getItem("chatName"),
+    chatEmail: sessionStorage.getItem("chatEmail")
+  };
+
+  document.__cp_f = {
+    "会員番号": sessionStorage.getItem("memberNo"),
+    "誕生日": sessionStorage.getItem("birthday")
+  };
 </script>
   
 <script>(function(){
