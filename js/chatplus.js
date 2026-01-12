@@ -1,3 +1,18 @@
+(function () {
+
+  function waitForSessionData(callback) {
+    const timer = setInterval(() => {
+      // 必須キーが揃ったらOK
+      if (
+        sessionStorage.getItem("memberNo") &&
+        sessionStorage.getItem("chatName")
+      ) {
+        clearInterval(timer);
+        callback();
+      }
+    }, 100); // 100msごとにチェック
+  }
+
 (function(){
 var w=window,d=document;
 var s="https://app.chatplus.jp/cp.js";
@@ -14,3 +29,8 @@ d["__cp_c"]="c0632e38_92";
   };
 var a=d.createElement("script"), m=d.getElementsByTagName("script")[0];
 a.async=true,a.src=s,m.parentNode.insertBefore(a,m);})();
+
+  // 🔑 ここがポイント
+  waitForSessionData(initChatPlus);
+
+})();
