@@ -4,15 +4,16 @@ body {
   background: #fff7f1;
   color: #5c3a2e;
   margin: 0;
-  padding: 0;
+  padding: 16px; /* ← スマホ余白 */
 }
 
 /* ===== 見出し ===== */
 h1 {
   text-align: center;
   color: #f7a072;
-  margin-top: 40px;
-  margin-bottom: 5px;
+  margin-top: 24px;  
+  margin-bottom: 8px;
+  font-size: 22px;   
 }
 
 /* ===== 入力ガイド ===== */
@@ -36,19 +37,19 @@ form,
 
 label {
   display: block;
-  margin-bottom: 2px;
-  font-size: 14px;
+  margin-bottom: 4px;
+  font-size: 15px; 
 }
 
 /* ===== 入力欄 ===== */
 input {
   width: 100%;
-  padding: 10px;
-  margin-top: 2px;
-  margin-bottom: 14px;
+  padding: 12px;
+  margin-top: 4px;
+  margin-bottom: 16px;
   border-radius: 10px;
   border: 1px solid #f2c6a5;
-  font-size: 14px;
+  font-size: 16px; /* ← 重要 */
   box-sizing: border-box;
 }
 
@@ -126,4 +127,27 @@ a:hover {
 .link-area a:hover {
   text-decoration: underline;
   opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+
+  form,
+  #profile {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .login-guide {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .link-area {
+    font-size: 12px;
+  }
 }
