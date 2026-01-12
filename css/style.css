@@ -12,6 +12,14 @@ h1 {
   text-align: center;
   color: #f7a072;
   margin-top: 40px;
+  margin-bottom: 5px;
+}
+
+/* ===== 入力ガイド ===== */
+.login-guide {
+  text-align: center;
+  color: #f7a072;
+  margin-top: 2px;
 }
 
 /* ===== フォーム / カード ===== */
@@ -19,17 +27,23 @@ form,
 #profile {
   background: #ffffff;
   max-width: 360px;
-  margin: 30px auto;
+  margin: 20px auto;
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 14px;
 }
 
 /* ===== 入力欄 ===== */
 input {
   width: 100%;
   padding: 10px;
-  margin-top: 6px;
+  margin-top: 2px;
   border-radius: 10px;
   border: 1px solid #f2c6a5;
   font-size: 14px;
