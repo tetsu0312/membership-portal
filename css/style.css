@@ -1,0 +1,113 @@
+/* ===== 全体 ===== */
+body {
+  font-family: "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
+  background: #fff7f1;
+  color: #5c3a2e;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== 見出し ===== */
+h1 {
+  text-align: center;
+  color: #f7a072;
+  margin-top: 40px;
+}
+
+/* ===== フォーム / カード ===== */
+form,
+#profile {
+  background: #ffffff;
+  max-width: 360px;
+  margin: 30px auto;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== 入力欄 ===== */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #f2c6a5;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #f7a072;
+  background: #fffaf6;
+}
+
+/* ===== ボタン ===== */
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  background: #f7a072;
+  color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #f38b55;
+}
+
+/* ===== マイページ一覧 ===== */
+#profile ul {
+  list-style: none;
+  padding: 0;
+}
+
+#profile li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #fbe3d4;
+}
+
+#profile li span {
+  font-weight: bold;
+  color: #f38b55;
+}
+
+/* ===== メッセージ ===== */
+#message {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ===== リンク ===== */
+a {
+  color: #f38b55;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== ログイン下リンク ===== */
+.link-area {
+  text-align: center;
+  line-height: 1;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.link-area a {
+  display: inline-block;
+  margin: 6px 0;
+  color: #d68a5f;          /* 淡いオレンジ（主張しすぎない） */
+  text-decoration: none;
+}
+
+.link-area a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
