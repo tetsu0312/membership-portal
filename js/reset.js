@@ -25,7 +25,7 @@ form.addEventListener("submit", async (e) => {
   try {
     await sendPasswordResetEmail(auth, email);
 
-    message.textContent = "再設定メールを送信しました。受信ボックスをご確認ください。";
+    message.textContent = "再設定手順をメールで送信しました。メールの受信箱をご確認ください。";
     message.style.color = "green";
   } catch (error) {
     // セキュリティ上「存在しないメール」とバレないよう同じ文言にするのが安全
