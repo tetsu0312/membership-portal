@@ -17,6 +17,13 @@ const auth = getAuth(app);
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
+// 🔁 保存されているメールがあれば自動入力
+const savedEmail = localStorage.getItem("savedEmail");
+if (savedEmail) {
+  document.getElementById("email").value = savedEmail;
+  document.getElementById("rememberEmail").checked = true;
+}
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   message.textContent = ""; // 前回メッセージ消す
@@ -24,9 +31,22 @@ form.addEventListener("submit", async (e) => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    location.href = "./mypage.html";
+try {
+  await signInWithEmailAndPassword(auth, email, password);
+
+  // 👇 追加ここから
+  const remember = document.getElementById("rememberEmail").checked;
+
+  if (remember) {
+    // チェックあり → メール保存
+    localStorage.setItem("savedEmail", email);
+  } else {
+    // チェックなし → 保存しない（消す）
+    localStorage.removeItem("savedEmail");
+  }
+  // 👆 追加ここまで
+
+  location.href = "./mypage.html";
   } catch (error) {
     // 👇 ここがポイント
     switch (error.code) {
