@@ -1,40 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ログイン｜会員ポータル</title>
+  <title>マイページ｜会員ポータル</title>
+
+  <!-- 共通CSS -->
   <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- FullCalendar -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
-  <h1>ログインページ</h1>
+  <div class="layout">
+    <!-- ===== サイドメニュー ===== -->
+    <aside class="sidebar">
+      <button id="mypageBtn">マイページ</button>
+    </aside>
 
-  <div>
+    <!-- ===== メイン ===== -->
+    <main class="main">
+      <h1>マイページ</h1>
 
-    <p class="login-guide">
-  メールアドレスとパスワードを入力してください😊
-  </p>
+      <div class="container">
+        <!-- ===== プロフィール ===== -->
+        <div id="profile" style="display:none;">
+          <p>ようこそ！</p>
 
-    <form id="loginForm">
-      <div>
-        <label>メールアドレス</label>
-        <input type="email" id="email" required />
+          <ul>
+            <li>ニックネーム：<input id="name" disabled /></li>
+            <li>会員番号：<input id="memberNo" disabled /></li>
+            <li>誕生日：<input id="birthday" disabled /></li>
+            <li>メール：<input id="email" disabled /></li>
+          </ul>
+
+          <button id="editBtn">編集</button>
+          <button id="saveBtn" style="display:none;">保存</button>
+          <button id="logoutBtn">ログアウト</button>
+
+          <!-- ===== カレンダー ===== -->
+          <div class="calendar-card">
+            <h2 class="calendar-title">今月のイベント</h2>
+            <div id="calendar"></div>
+          </div>
+        </div>
       </div>
-
-      <div>
-        <label>パスワード</label>
-        <input type="password" id="password" required />
-      </div>
-
-      <button type="submit">ログイン</button>
-    </form>
-
-    <p id="message"></p>
-
-<div class="link-area">
-  <a href="./reset.html">パスワードを忘れた方はこちら</a><br />
-  <a href="./register.html">新規会員登録はこちら</a>
-</div>
+    </main>
   </div>
 
-  <script type="module" src="./js/login.js"></script>
+  <!-- FullCalendar -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
+  <!-- マイページJS -->
+  <script type="module" src="./js/mypage.js"></script>
+  <script src="./js/chatplus.js"></script>
+
+  <!-- ===== カレンダー初期化 ===== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      if (!calendarEl) return;
+
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'ja',
+        height: 'auto',
+
+        initialView: window.innerWidth < 480
+          ? 'listMonth'
+          : 'dayGridMonth',
+
+        headerToolbar: {
+          left: 'prev',
+          center: 'title',
+          right: 'next'
+        },
+
+        events: [
+          {
+            title: '🍺 新年会',
+            start: '2026-02-05',
+            color: '#f7a072'
+          },
+          {
+            title: '⚽ フットサル',
+            start: '2026-02-12',
+            color: '#6fc2b0'
+          },
+          {
+            title: '📚 勉強会',
+            start: '2026-02-20',
+            color: '#8fa7ff'
+          }
+        ],
+
+        eventClick: function (info) {
+          alert(info.event.title + ' を開催予定たい！');
+        }
+      });
+
+      calendar.render();
+    });
+  </script>
 </body>
+</html>

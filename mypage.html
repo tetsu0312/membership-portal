@@ -7,21 +7,32 @@
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-  <h1>マイページ</h1>
+  <div class="layout">
+    <aside class="sidebar">
+      <button id="mypageBtn">マイページ</button>
+    </aside>
 
-  <div class="container">
-    <div id="profile" style="display:none;">
-      <p>ようこそ！</p>
-      <ul>
-        <li>ニックネーム：<span id="name"></span></li>
-        <li>会員番号：<span id="memberNo"></span></li>
-        <li>誕生日：<span id="birthday"></span></li>
-        <li>メール：<span id="email"></span></li>
-      </ul>
+    <main class="main">
+      <h1>マイページ</h1>
 
-      <button id="logoutBtn">ログアウト</button>
-    </div>
+      <div class="container">
+        <div id="profile" style="display:none;">
+          <p>ようこそ！</p>
+          <ul>
+            <li>ニックネーム：<input id="name" disabled /></li>
+            <li>会員番号：<input id="memberNo" disabled /></li>
+            <li>誕生日：<input id="birthday" disabled /></li>
+            <li>メール：<input id="email" disabled /></li>
+          </ul>
 
+          
+
+          <button id="editBtn">編集</button>
+          <button id="saveBtn" style="display:none;">保存</button>
+          <button id="logoutBtn">ログアウト</button>
+        </div>
+      </div>
+    </main>
   </div>
 
 <script type="module" src="./js/mypage.js"></script>

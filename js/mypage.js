@@ -62,3 +62,45 @@ onAuthStateChanged(auth, async (user) => {
     message.textContent = e.message;
   }
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarEl = document.getElementById('calendar');
+  if (!calendarEl) return;
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    locale: 'ja',
+    initialView: 'dayGridMonth',
+    height: 'auto',
+
+    headerToolbar: {
+      left: 'prev',
+      center: 'title',
+      right: 'next'
+    },
+
+    events: [
+      {
+        title: '🍺 新年会',
+        start: '2026-02-05',
+        color: '#f7a072'
+      },
+      {
+        title: '⚽ フットサル',
+        start: '2026-02-12',
+        color: '#6fc2b0'
+      },
+      {
+        title: '📚 勉強会',
+        start: '2026-02-20',
+        color: '#8fa7ff'
+      }
+    ],
+
+    eventClick: function(info) {
+      alert(info.event.title + ' やるばい！');
+    }
+  });
+
+  calendar.render();
+});
