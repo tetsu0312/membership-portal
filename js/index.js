@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQKXq7z-tgfz5H38G-GLpZWsEG3MA8i2Q",
@@ -14,14 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => {
-
-  if (user) {
-    // すでにmypageにいるなら何もしない
-    if (!location.pathname.includes("mypage.html")) {
-      location.replace("./mypage.html");
-    }
-  }
-
-  // 未ログインは何もしない
-});
+// 🔥 ここでは何もリダイレクトしない
+// ログイン処理が成功したときだけ
+// login.js 側で mypage.html に飛ばす構成にする
