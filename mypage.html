@@ -7,36 +7,29 @@
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <button id="mypageBtn">マイページ</button>
-    </aside>
 
-    <main class="main">
-      <h1>マイページ</h1>
+  <main>
 
-      <div class="container">
-        <div id="profile" style="display:none;">
-          <p>ようこそ！</p>
-          <ul>
-            <li>ニックネーム：<input id="name" disabled /></li>
-            <li>会員番号：<input id="memberNo" disabled /></li>
-            <li>誕生日：<input id="birthday" disabled /></li>
-            <li>メール：<input id="email" disabled /></li>
-          </ul>
+    <h1>ようこそ！</h1>
 
-          
+    <div id="profile" style="display:none;">
 
-          <button id="editBtn">編集</button>
-          <button id="saveBtn" style="display:none;">保存</button>
-          <button id="logoutBtn">ログアウト</button>
-        </div>
-      </div>
-    </main>
-  </div>
+      <ul>
+        <li>ニックネーム：<input id="name" disabled /></li>
+        <li>会員番号：<input id="memberNo" disabled /></li>
+        <li>誕生日：<input id="birthday" disabled /></li>
+        <li>メール：<input id="email" disabled /></li>
+      </ul>
 
-<script type="module" src="./js/mypage.js"></script>
-<script src="./js/chatplus.js"></script>
+      <button id="logoutBtn">ログアウト</button>
+
+    </div>
+
+  </main>
+
+  <script type="module" src="./js/mypage.js"></script>
+  <!-- 安定するまで一旦外してもOK -->
+  <!-- <script src="./js/chatplus.js"></script> -->
 
 </body>
 </html>

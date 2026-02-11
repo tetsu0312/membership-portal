@@ -4,21 +4,21 @@ body {
   background: #fff7f1;
   color: #5c3a2e;
   margin: 0;
-  padding: 16px; /* ← スマホ余白 */
+  padding: 16px;
 }
 
 /* ===== 見出し ===== */
 h1 {
   text-align: center;
   color: #f7a072;
-  margin-top: 24px;  
+  margin-top: 24px;
   margin-bottom: 8px;
-  font-size: 22px;   
+  font-size: 22px;
 }
 
 /* ===== 入力ガイド ===== */
 .login-guide {
-font-size: 14px;
+  font-size: 14px;
   text-align: center;
   color: #f7a072;
   margin-top: 2px;
@@ -38,7 +38,7 @@ form,
 label {
   display: block;
   margin-bottom: 4px;
-  font-size: 15px; 
+  font-size: 15px;
 }
 
 /* ===== 入力欄 ===== */
@@ -49,7 +49,7 @@ input {
   margin-bottom: 16px;
   border-radius: 10px;
   border: 1px solid #f2c6a5;
-  font-size: 16px; /* ← 重要 */
+  font-size: 16px;
   box-sizing: border-box;
 }
 
@@ -88,11 +88,6 @@ button:hover {
   border-bottom: 1px dashed #fbe3d4;
 }
 
-#profile li span {
-  font-weight: bold;
-  color: #f38b55;
-}
-
 /* ===== メッセージ ===== */
 #message {
   text-align: center;
@@ -109,32 +104,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ===== レイアウト（PC） ===== */
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 120px;
-  background: #fff;
-  border-right: 1px solid #fbe3d4;
-  padding: 12px 8px;
-}
-
-.sidebar button {
-  width: 100%;
-  font-size: 13px;
-  padding: 10px 0;
-  white-space: nowrap;      /* 改行させない */
-  overflow: hidden;         /* はみ出し防止 */
-  text-overflow: ellipsis;  /* 万一長い場合は … */
-}
-
-.main {
-  flex: 1;
-}
-
 /* ===== ログイン下リンク ===== */
 .link-area {
   text-align: center;
@@ -146,7 +115,7 @@ a:hover {
 .link-area a {
   display: inline-block;
   margin: 6px 0;
-  color: #d68a5f;          /* 淡いオレンジ（主張しすぎない） */
+  color: #d68a5f;
   text-decoration: none;
 }
 
@@ -155,37 +124,12 @@ a:hover {
   opacity: 0.8;
 }
 
+/* ===== スマホ調整 ===== */
 @media (max-width: 480px) {
 
   body {
     padding-left: 12px;
     padding-right: 12px;
-    padding-bottom: 80px; /* 下ナビ分の余白 */
-  }
-
-  /* ===== スマホ時：下ナビ ===== */
-  .layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-right: none;
-    border-top: 1px solid #fbe3d4;
-    z-index: 100;
-  }
-
-  .sidebar button {
-    width: auto;
-    font-size: 14px;
-    padding: 8px 16px;
   }
 
   form,
@@ -207,41 +151,4 @@ a:hover {
   .link-area {
     font-size: 12px;
   }
-}
-
-
-/* ===== カレンダーカード ===== */
-.calendar-card {
-  background: #ffffff;
-  margin-top: 24px;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-}
-
-.calendar-title {
-  font-size: 16px;
-  color: #f38b55;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-/* FullCalendar 微調整 */
-#calendar {
-  font-size: 13px;
-}
-
-.fc .fc-toolbar-title {
-  font-size: 16px;
-}
-
-.fc .fc-button {
-  background: #f7a072;
-  border: none;
-  border-radius: 999px;
-  padding: 4px 10px;
-}
-
-.fc .fc-button:hover {
-  background: #f38b55;
 }
