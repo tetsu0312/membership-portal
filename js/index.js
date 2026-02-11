@@ -15,10 +15,13 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
+
   if (user) {
-    // 🔥 ログイン済みなら即マイページ
-    location.replace("./mypage.html");
+    // すでにmypageにいるなら何もしない
+    if (!location.pathname.includes("mypage.html")) {
+      location.replace("./mypage.html");
+    }
   }
-  // 未ログイン時は何もしない
-  // → index.html の「ログイン / 新規登録」が表示される
+
+  // 未ログインは何もしない
 });

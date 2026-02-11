@@ -21,7 +21,7 @@ const memberNoEl = document.getElementById("memberNo");
 const birthdayEl = document.getElementById("birthday");
 const emailEl = document.getElementById("email");
 const profile = document.getElementById("profile");
-const message = document.getElementById("message");
+const message = document.getElementById("message") || null;
 
 // ログアウト
 document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -31,6 +31,8 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 });
 
 onAuthStateChanged(auth, async (user) => {
+
+  // 未ログインなら index へ
   if (!user) {
     location.replace("./index.html");
     return;
@@ -38,69 +40,29 @@ onAuthStateChanged(auth, async (user) => {
 
   try {
     const snap = await getDoc(doc(db, "users", user.uid));
+
     if (!snap.exists()) {
-      message.textContent = "ユーザー情報が見つからんかったよ😱";
+      if (message) message.textContent = "ユーザー情報が見つからんかったよ😱";
       return;
     }
 
     const data = snap.data();
 
-    // ① 画面に表示
-    nameEl.textContent = data.name ?? "";
-    memberNoEl.textContent = data.memberNo ?? "";
-    birthdayEl.textContent = data.birthday ?? "";
-    emailEl.textContent = data.email ?? user.email ?? "";
+    // input なので value を使う
+    nameEl.value = data.name ?? "";
+    memberNoEl.value = data.memberNo ?? "";
+    birthdayEl.value = data.birthday ?? "";
+    emailEl.value = data.email ?? user.email ?? "";
+
     profile.style.display = "block";
 
-    // ② sessionStorage に保存（←ここが今回の主役！）
+    // sessionStorage 保存
     sessionStorage.setItem("chatName", data.name ?? "");
     sessionStorage.setItem("chatEmail", data.email ?? user.email ?? "");
     sessionStorage.setItem("memberNo", data.memberNo ?? "");
     sessionStorage.setItem("birthday", data.birthday ?? "");
 
   } catch (e) {
-    message.textContent = e.message;
+    if (message) message.textContent = e.message;
   }
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const calendarEl = document.getElementById('calendar');
-  if (!calendarEl) return;
-
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    locale: 'ja',
-    initialView: 'dayGridMonth',
-    height: 'auto',
-
-    headerToolbar: {
-      left: 'prev',
-      center: 'title',
-      right: 'next'
-    },
-
-    events: [
-      {
-        title: '🍺 新年会',
-        start: '2026-02-05',
-        color: '#f7a072'
-      },
-      {
-        title: '⚽ フットサル',
-        start: '2026-02-12',
-        color: '#6fc2b0'
-      },
-      {
-        title: '📚 勉強会',
-        start: '2026-02-20',
-        color: '#8fa7ff'
-      }
-    ],
-
-    eventClick: function(info) {
-      alert(info.event.title + ' やるばい！');
-    }
-  });
-
-  calendar.render();
 });
