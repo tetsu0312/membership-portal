@@ -3,11 +3,6 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 /* ===============================
-   GitHub Pages 用ベースパス
-================================ */
-const BASE_PATH = "/membership-portal/";
-
-/* ===============================
    Firebase 初期化
 ================================ */
 const firebaseConfig = {
@@ -24,34 +19,39 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 /* ===============================
-   DOM取得（安全）
+   DOM取得
 ================================ */
 const nameEl = document.getElementById("name");
 const memberNoEl = document.getElementById("memberNo");
 const birthdayEl = document.getElementById("birthday");
 const emailEl = document.getElementById("email");
 const profile = document.getElementById("profile");
-const logoutBtn = document.getElementById("logoutBtn");
 
 /* ===============================
-   ログアウト処理
+   ログアウト（飛ばさない）
 ================================ */
+const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
     sessionStorage.clear();
-location.href = "index.html";
+    alert("ログアウトしました。\nログインページはこちら → index.html");
   });
 }
 
 /* ===============================
-   認証チェック（ここだけで制御）
+   認証チェック（飛ばさない）
 ================================ */
 onAuthStateChanged(auth, async (user) => {
 
-  // 未ログインなら即 index へ
   if (!user) {
-location.href = "index.html";
+    document.body.innerHTML = `
+      <div style="padding:40px; font-family:sans-serif;">
+        <h2>ログインしていません</h2>
+        <p>ログインページはこちら：</p>
+        <a href="index.html">index.html</a>
+      </div>
+    `;
     return;
   }
 
@@ -59,7 +59,7 @@ location.href = "index.html";
     const snap = await getDoc(doc(db, "users", user.uid));
 
     if (!snap.exists()) {
-      console.error("ユーザーデータなし");
+      alert("ユーザーデータがありません");
       return;
     }
 
@@ -71,12 +71,6 @@ location.href = "index.html";
     if (emailEl) emailEl.value = data.email ?? user.email ?? "";
 
     if (profile) profile.style.display = "block";
-
-    // session保存
-    sessionStorage.setItem("chatName", data.name ?? "");
-    sessionStorage.setItem("chatEmail", data.email ?? user.email ?? "");
-    sessionStorage.setItem("memberNo", data.memberNo ?? "");
-    sessionStorage.setItem("birthday", data.birthday ?? "");
 
   } catch (error) {
     console.error(error);
