@@ -1,45 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>マイページ｜会員ポータル</title>
+<h1>ログイン</h1>
 
-  <!-- 共通CSS -->
-  <link rel="stylesheet" href="./css/style.css" />
+<form id="loginForm">
+  <input type="email" id="email" placeholder="メール">
+  <input type="password" id="password" placeholder="パスワード">
+  <button type="submit">ログイン</button>
+</form>
 
-</head>
+<p id="message"></p>
 
-<body>
-  <div class="layout">
-    <!-- ===== サイドメニュー ===== -->
-    <aside class="sidebar">
-      <button id="mypageBtn">マイページ</button>
-    </aside>
-
-    <!-- ===== メイン ===== -->
-    <main class="main">
-      <h1>マイページ</h1>
-
-      <div class="container">
-        <!-- ===== プロフィール ===== -->
-        <div id="profile" style="display:none;">
-          <p>ようこそ！</p>
-
-          <ul>
-            <li>ニックネーム：<input id="name" disabled /></li>
-            <li>会員番号：<input id="memberNo" disabled /></li>
-            <li>誕生日：<input id="birthday" disabled /></li>
-            <li>メール：<input id="email" disabled /></li>
-          </ul>
-
-          <button id="editBtn">編集</button>
-          <button id="saveBtn" style="display:none;">保存</button>
-          <button id="logoutBtn">ログアウト</button>
-
-  <!-- マイページJS -->
-  <script type="module" src="./js/mypage.js"></script>
-  <script src="./js/chatplus.js"></script>
-
-</body>
-</html>
+<script type="module" src="./js/login.js"></script>
