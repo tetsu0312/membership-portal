@@ -27,14 +27,14 @@ const message = document.getElementById("message") || null;
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   sessionStorage.clear();
   await signOut(auth);
-  location.replace("./index.html");
+  location.href = "index.html";
 });
 
 onAuthStateChanged(auth, async (user) => {
 
   // 未ログインなら index へ
   if (!user) {
-    location.replace("./index.html");
+    location.href = "index.html";
     return;
   }
 
