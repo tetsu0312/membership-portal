@@ -27,16 +27,16 @@ const message = document.getElementById("message") || null;
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   sessionStorage.clear();
   await signOut(auth);
-  location.href = "index.html";
+location.href = "/membership-portal/index.html";
 });
 
 onAuthStateChanged(auth, async (user) => {
 
   // 未ログインなら index へ
-  if (!user) {
-    location.href = "index.html";
-    return;
-  }
+if (!user) {
+  location.href = "/membership-portal/index.html";
+  return;
+}
 
   try {
     const snap = await getDoc(doc(db, "users", user.uid));
