@@ -76,6 +76,12 @@ onAuthStateChanged(auth, async (user) => {
 
     const data = snap.data();
 
+    // セッションストレージ保存
+sessionStorage.setItem("chatName", data.name ?? "");
+sessionStorage.setItem("chatEmail", data.email ?? user.email ?? "");
+sessionStorage.setItem("memberNo", data.memberNo ?? "");
+sessionStorage.setItem("birthday", data.birthday ?? "");
+
     // span にテキスト表示
     if (nameEl) nameEl.textContent = data.name ?? "";
     if (memberNoEl) memberNoEl.textContent = data.memberNo ?? "";
