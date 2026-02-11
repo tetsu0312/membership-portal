@@ -8,11 +8,6 @@
   <!-- 共通CSS -->
   <link rel="stylesheet" href="./css/style.css" />
 
-  <!-- FullCalendar -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
-    rel="stylesheet"
-  />
 </head>
 
 <body>
@@ -59,51 +54,5 @@
   <script type="module" src="./js/mypage.js"></script>
   <script src="./js/chatplus.js"></script>
 
-  <!-- ===== カレンダー初期化 ===== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const calendarEl = document.getElementById('calendar');
-      if (!calendarEl) return;
-
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: 'ja',
-        height: 'auto',
-
-        initialView: window.innerWidth < 480
-          ? 'listMonth'
-          : 'dayGridMonth',
-
-        headerToolbar: {
-          left: 'prev',
-          center: 'title',
-          right: 'next'
-        },
-
-        events: [
-          {
-            title: '🍺 新年会',
-            start: '2026-02-05',
-            color: '#f7a072'
-          },
-          {
-            title: '⚽ フットサル',
-            start: '2026-02-12',
-            color: '#6fc2b0'
-          },
-          {
-            title: '📚 勉強会',
-            start: '2026-02-20',
-            color: '#8fa7ff'
-          }
-        ],
-
-        eventClick: function (info) {
-          alert(info.event.title + ' を開催予定たい！');
-        }
-      });
-
-      calendar.render();
-    });
-  </script>
 </body>
 </html>
