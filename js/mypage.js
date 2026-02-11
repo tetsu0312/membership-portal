@@ -39,6 +39,7 @@ if (logoutBtn) {
     document.body.innerHTML = `
       <div style="padding:40px; text-align:center;">
         <h2>ログアウトしました!</h2>
+        <p>ログインページは<a href="index.html">こちら</a></p>
       </div>
     `;
   });
