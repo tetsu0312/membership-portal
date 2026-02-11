@@ -26,30 +26,42 @@ const memberNoEl = document.getElementById("memberNo");
 const birthdayEl = document.getElementById("birthday");
 const emailEl = document.getElementById("email");
 const profile = document.getElementById("profile");
+const logoutBtn = document.getElementById("logoutBtn");
 
 /* ===============================
-   ログアウト（飛ばさない）
+   ログアウト処理
 ================================ */
-const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
     sessionStorage.clear();
-    alert("ログアウトしました。\nログインページはこちら → index.html");
+
+    document.body.innerHTML = `
+      <div style="padding:40px; text-align:center;">
+        <h2>ログアウトしました</h2>
+        <p>
+          ログインページは
+          <a href="index.html">こちら</a>
+        </p>
+      </div>
+    `;
   });
 }
 
 /* ===============================
-   認証チェック（飛ばさない）
+   認証チェック
 ================================ */
 onAuthStateChanged(auth, async (user) => {
 
+  // 未ログイン時
   if (!user) {
     document.body.innerHTML = `
-      <div style="padding:40px; font-family:sans-serif;">
+      <div style="padding:40px; text-align:center;">
         <h2>ログインしていません</h2>
-        <p>ログインページはこちら：</p>
-        <a href="index.html">index.html</a>
+        <p>
+          ログインページは
+          <a href="index.html">こちら</a>
+        </p>
       </div>
     `;
     return;
@@ -59,16 +71,21 @@ onAuthStateChanged(auth, async (user) => {
     const snap = await getDoc(doc(db, "users", user.uid));
 
     if (!snap.exists()) {
-      alert("ユーザーデータがありません");
+      document.body.innerHTML = `
+        <div style="padding:40px; text-align:center;">
+          <h2>ユーザーデータが見つかりません</h2>
+        </div>
+      `;
       return;
     }
 
     const data = snap.data();
 
-    if (nameEl) nameEl.value = data.name ?? "";
-    if (memberNoEl) memberNoEl.value = data.memberNo ?? "";
-    if (birthdayEl) birthdayEl.value = data.birthday ?? "";
-    if (emailEl) emailEl.value = data.email ?? user.email ?? "";
+    // span にテキスト表示
+    if (nameEl) nameEl.textContent = data.name ?? "";
+    if (memberNoEl) memberNoEl.textContent = data.memberNo ?? "";
+    if (birthdayEl) birthdayEl.textContent = data.birthday ?? "";
+    if (emailEl) emailEl.textContent = data.email ?? user.email ?? "";
 
     if (profile) profile.style.display = "block";
 
