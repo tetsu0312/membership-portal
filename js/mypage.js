@@ -40,7 +40,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await signOut(auth);
     sessionStorage.clear();
-    location.href = BASE_PATH + "index.html";
+ location.href = BASE_PATH;
   });
 }
 
@@ -51,7 +51,7 @@ onAuthStateChanged(auth, async (user) => {
 
   // 未ログインなら即 index へ
   if (!user) {
-    location.href = BASE_PATH + "index.html";
+    location.href = BASE_PATH;
     return;
   }
 
