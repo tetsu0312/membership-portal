@@ -38,11 +38,7 @@ if (logoutBtn) {
 
     document.body.innerHTML = `
       <div style="padding:40px; text-align:center;">
-        <h2>ログアウトしました</h2>
-        <p>
-          ログインページは
-          <a href="index.html">こちら</a>
-        </p>
+        <h2>ログアウトしました!</h2>
       </div>
     `;
   });
@@ -59,8 +55,7 @@ onAuthStateChanged(auth, async (user) => {
       <div style="padding:40px; text-align:center;">
         <h2>ログインしていません</h2>
         <p>
-          ログインページは
-          <a href="index.html">こちら</a>
+          ログインページは<a href="index.html">こちら</a>
         </p>
       </div>
     `;
